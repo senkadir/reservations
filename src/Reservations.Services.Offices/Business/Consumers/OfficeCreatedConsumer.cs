@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Caching.Distributed;
-using Reservations.Services.Contracts.Events.Offices;
+using Reservations.Services.Contracts.Events;
 using System.Threading.Tasks;
 
 namespace Reservations.Services.Offices.Business.Consumers

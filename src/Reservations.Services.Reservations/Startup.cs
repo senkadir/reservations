@@ -10,9 +10,12 @@ using Microsoft.Extensions.Hosting;
 using Reservations.Common.Broker;
 using Reservations.Common.Cache;
 using Reservations.Common.Consul;
+using Reservations.Common.ServiceCommunications;
 using Reservations.Common.Swagger;
 using Reservations.Services.Common.Types;
 using Reservations.Services.Reservations.Data;
+using Reservations.Services.Reservations.ExternalServices;
+using Reservations.Services.Reservations.Initializations;
 
 namespace Reservations.Services.Reservations
 {
@@ -69,6 +72,15 @@ namespace Reservations.Services.Reservations
             });
 
             services.AddSwaggerDocs();
+
+            if (HostEnvironment.EnvironmentName =="Docker")
+            {
+                services.AddServiceForwarder<IRoomService>("rooms");
+            }
+            else
+            {
+                services.AddServiceForwarder<IRoomService>("rooms-dev");
+            }
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -86,6 +98,7 @@ namespace Reservations.Services.Reservations
 
             if (HostEnvironment.EnvironmentName == "Docker")
             {
+                app.InitializeService();
             }
         }
     }

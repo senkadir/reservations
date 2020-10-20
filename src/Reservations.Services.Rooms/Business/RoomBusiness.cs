@@ -1,13 +1,18 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MassTransit;
-using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.EntityFrameworkCore;
 using Reservations.Common.Shared;
 using Reservations.Services.Common.Types;
-using Reservations.Services.Contracts.Requests.Offices;
+using Reservations.Services.Contracts.Requests;
+using Reservations.Services.Contracts.Responds;
 using Reservations.Services.Rooms.Commands;
 using Reservations.Services.Rooms.Data;
 using Reservations.Services.Rooms.Entities;
+using Reservations.Services.Rooms.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Reservations.Services.Rooms.Business
@@ -16,18 +21,27 @@ namespace Reservations.Services.Rooms.Business
     {
         private readonly ApplicationContext _applicationContext;
         private readonly IMapper _mapper;
-        private readonly IDistributedCache _distributedCache;
         private readonly IBus _bus;
 
         public RoomBusiness(ApplicationContext applicationContext,
                               IMapper mapper,
-                              IDistributedCache distributedCache,
                               IBus bus)
         {
             _applicationContext = applicationContext;
             _mapper = mapper;
-            _distributedCache = distributedCache;
             _bus = bus;
+        }
+
+        public async Task<List<RoomViewModel>> AvailableRoomsByOfficesAsync(GetAvailableRoomsByOfficesCommand command)
+        {
+            Check.NotNull(command, nameof(command));
+
+            Check.NotNull(command.Offices, nameof(command.Offices));
+
+            return await _applicationContext.Rooms
+                                            .Where(x => command.Offices.Contains(x.OfficeId))
+                                            .ProjectTo<RoomViewModel>(_mapper.ConfigurationProvider)
+                                            .ToListAsync();
         }
 
         public async Task CreateAsync(CreateRoomCommand command)

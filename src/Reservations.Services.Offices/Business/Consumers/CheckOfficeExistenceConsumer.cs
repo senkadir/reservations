@@ -1,5 +1,6 @@
 ﻿using MassTransit;
-using Reservations.Services.Contracts.Requests.Offices;
+using Reservations.Services.Contracts.Requests;
+using Reservations.Services.Contracts.Responds;
 using System.Threading.Tasks;
 
 namespace Reservations.Services.Offices.Business.Consumers

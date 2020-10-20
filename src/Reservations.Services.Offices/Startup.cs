@@ -12,12 +12,11 @@ using Reservations.Common.Cache;
 using Reservations.Common.Consul;
 using Reservations.Common.Swagger;
 using Reservations.Services.Common.Types;
-using Reservations.Services.Contracts.Events.Offices;
-using Reservations.Services.Contracts.Requests.Offices;
+using Reservations.Services.Contracts.Events;
+using Reservations.Services.Contracts.Requests;
 using Reservations.Services.Offices.Business.Consumers;
 using Reservations.Services.Offices.Data;
 using Reservations.Services.Offices.Initializations;
-using System.Text.Json.Serialization;
 
 namespace Reservations.Services.Offices
 {
@@ -57,6 +56,11 @@ namespace Reservations.Services.Offices
                       f.ReceiveEndpoint(f.MessageTopology.EntityNameFormatter.FormatEntityName<CheckOfficeExistence>(), e =>
                       {
                           e.Consumer<CheckOfficeExistenceConsumer>(provider: context);
+                      });
+
+                      f.ReceiveEndpoint(f.MessageTopology.EntityNameFormatter.FormatEntityName<CheckOfficeAvailability>(), e =>
+                      {
+                          e.Consumer<CheckOfficeAvailabilityConsumer>(provider: context);
                       });
                   })
                   .AddAutoMapper(typeof(Startup).Assembly)

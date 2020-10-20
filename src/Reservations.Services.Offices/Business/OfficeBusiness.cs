@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Reservations.Common.Shared;
 using Reservations.Services.Common.Types;
-using Reservations.Services.Contracts.Events.Offices;
+using Reservations.Services.Contracts.Events;
 using Reservations.Services.Offices.Commands;
 using Reservations.Services.Offices.Data;
 using Reservations.Services.Offices.Entities;
 using Reservations.Services.Offices.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -77,6 +78,17 @@ namespace Reservations.Services.Offices.Business
         {
             return await _applicationContext.Offices
                                       .AnyAsync(x => x.Id == officeId);
+        }
+
+        public async Task<List<Guid>> AvailableOfficesAsync(CheckAvailableOfficesCommand command)
+        {
+            var availableOffices = await _applicationContext.Offices
+                                                          .Where(x => x.OpenTime <= command.StartTime
+                                                                   && x.CloseTime >= command.EndTime)
+                                                          .Select(x => x.Id)
+                                                          .ToListAsync();
+
+            return availableOffices;
         }
     }
 }

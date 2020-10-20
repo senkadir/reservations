@@ -13,6 +13,7 @@ using Reservations.Common.Consul;
 using Reservations.Common.Swagger;
 using Reservations.Services.Common.Types;
 using Reservations.Services.Rooms.Data;
+using Reservations.Services.Rooms.Initializations;
 
 namespace Reservations.Services.Rooms
 {
@@ -86,6 +87,7 @@ namespace Reservations.Services.Rooms
 
             if (HostEnvironment.EnvironmentName == "Docker")
             {
+                app.InitializeService();
             }
         }
     }

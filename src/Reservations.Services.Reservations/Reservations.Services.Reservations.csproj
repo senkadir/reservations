@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Data\EntityConfigurations\" />
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
@@ -35,6 +36,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Reservations.Common\Reservations.Common.csproj" />
     <ProjectReference Include="..\Reservations.Services.Contracts\Reservations.Services.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Reservations.Services.Reservations.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 

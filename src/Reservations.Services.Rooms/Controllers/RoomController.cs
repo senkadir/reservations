@@ -27,5 +27,16 @@ namespace Reservations.Services.Rooms.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Get available rooms by offices
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost, Route("by-offices")]
+        public async Task<IActionResult> GetRoomsByOffice([FromBody] GetAvailableRoomsByOfficesCommand command)
+        {
+            return Ok(await _roomBusiness.AvailableRoomsByOfficesAsync(command));
+        }
     }
 }

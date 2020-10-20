@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Reservations.Services.Contracts.Requests.Offices
+namespace Reservations.Services.Contracts.Responds
 {
     public interface OfficeExistenceRespond
     {

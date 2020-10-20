@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Reservations.Services.Contracts.Events.Offices
+namespace Reservations.Services.Contracts.Events
 {
     public interface OfficeCreated
     {

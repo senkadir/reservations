@@ -37,5 +37,11 @@ namespace Reservations.Services.Offices.Controllers
         {
             return Ok(await _officeBusiness.GetAsync());
         }
+
+        [HttpPost, Route("availables")]
+        public async Task<IActionResult> CheckAvailableOffices([FromBody] CheckAvailableOfficesCommand command)
+        {
+            return Ok(await _officeBusiness.AvailableOfficesAsync(command));
+        }
     }
 }

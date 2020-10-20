@@ -17,5 +17,12 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.GetRoomsByOffice(Reservations.Services.Rooms.Commands.GetAvailableRoomsByOfficesCommand)">
+            <summary>
+            Get available rooms by offices
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
