@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Reservations.Services.Offices</name>
+    </assembly>
+    <members>
+        <member name="M:Reservations.Services.Offices.Controllers.OfficeController.CreateOfficeAsync(Reservations.Services.Offices.Commands.CreateOfficeCommand)">
+            <summary>
+            Creates new office
+            </summary>
+            <param name="createOfficeCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reservations.Services.Offices.Controllers.OfficeController.GetOfficesAsync">
+            <summary>
+            Get current offices
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Reservations.Services.Offices.Controllers.ServiceController.Ping">
+            <summary>
+            Service health check endpoint
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Reservations.Services.Rooms</name>
+    </assembly>
+    <members>
+        <member name="M:Reservations.Services.Offices.Controllers.ServiceController.Ping">
+            <summary>
+            Service health check endpoint
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.CreateRoomAsync(Reservations.Services.Rooms.Commands.CreateRoomCommand)">
+            <summary>
+            Create new room
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

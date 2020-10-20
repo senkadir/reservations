@@ -1,0 +1,129 @@
+version: "3.5"
+
+##4500x for insfrastructure
+##4501x for services
+
+services:
+
+  ##45000
+  consul:
+    image: consul:1.5.2
+    command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
+    hostname: consul
+    container_name : consul
+    networks: 
+      - reservations
+    ports:
+      - '8300:8300'
+      - '8301:8301'
+      - '8301:8301/udp'
+      - '8500:8500'
+      - '8600:8600'
+      - '8600:8600/udp'
+      - '45000:8500'
+
+  ##45001
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq1"
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "test"
+      RABBITMQ_DEFAULT_PASS: "test"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "45001:15672"
+      - "5672:5672"
+    labels:
+      NAME: "rabbitmq1"
+    networks: 
+      - reservations
+
+  ##45002 - db
+  postgresdb:
+    image: postgres:11.4
+    ports:
+      - "45002:5432"
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgres/data
+    environment:
+      POSTGRES_USER: "sqladmin"
+      POSTGRES_PASSWORD: "sqladmin"
+      POSTGRES_DB: "reservations"
+    container_name: db
+    networks: 
+      - reservations
+
+  ##45003 - db-pgadmin
+  dbpgadmin:
+    image: dpage/pgadmin4:4.15
+    ports:
+      - "45003:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "sqladmin@sqladmin"
+      PGADMIN_DEFAULT_PASSWORD: "test"
+    container_name: pgadmin
+    volumes:
+      - pg_volume:/var/lib/pgadmin
+    networks: 
+      - reservations
+
+  ##45004 - redis
+  redis:
+    image: redis:3.0.5
+    ports:
+      - "45004:6379"
+    container_name: redis
+    networks: 
+      - reservations
+      
+  ##45010 - offices service
+  reservations.services.offices:
+    image: reservations/reservations.services.offices
+    build:
+      context: ./src
+      dockerfile: ./Reservations.Services.Offices/Dockerfile
+    container_name: offices
+    ports:
+      - '45010:5000'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    networks:
+      - reservations
+    depends_on:
+      - consul
+      - rabbitmq
+      - postgresdb
+    restart: 
+      on-failure
+
+  ##45011 - rooms service
+  reservations.services.rooms:
+    image: reservations/reservations.services.rooms
+    build:
+      context: ./src
+      dockerfile: ./Reservations.Services.Rooms/Dockerfile
+    container_name: rooms
+    ports:
+      - '45011:5000'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    networks:
+      - reservations
+    depends_on:
+      - consul
+      - rabbitmq
+      - postgresdb
+    restart: 
+      on-failure
+
+networks:
+  reservations:
+    name: reservations-network
+
+volumes:
+  db_volume:
+  pg_volume:
+
