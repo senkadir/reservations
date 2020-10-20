@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using Reservations.Common.Shared;
 using Reservations.Services.Common.Types;
 using Reservations.Services.Contracts.Events;
@@ -13,7 +14,6 @@ using Reservations.Services.Offices.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Reservations.Services.Offices.Business
@@ -64,11 +64,11 @@ namespace Reservations.Services.Offices.Business
                                                    .ProjectTo<OfficeViewModel>(_mapper.ConfigurationProvider)
                                                    .ToListAsync();
 
-                await _distributedCache.SetStringAsync(CacheKeys.Officess, JsonSerializer.Serialize(offices));
+                await _distributedCache.SetStringAsync(CacheKeys.Officess, JsonConvert.SerializeObject(offices));
             }
             else
             {
-                offices = JsonSerializer.Deserialize<List<OfficeViewModel>>(cachedData);
+                offices = JsonConvert.DeserializeObject<List<OfficeViewModel>>(cachedData);
             }
 
             return offices;
