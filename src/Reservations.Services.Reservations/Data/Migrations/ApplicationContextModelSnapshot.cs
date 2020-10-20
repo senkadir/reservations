@@ -32,10 +32,6 @@ namespace Reservations.Services.Reservations.Data.Migrations
                         .HasColumnName("duration")
                         .HasColumnType("tsrange");
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnName("end_time")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<int>("PersonCount")
                         .HasColumnName("person_count")
                         .HasColumnType("integer");
@@ -43,10 +39,6 @@ namespace Reservations.Services.Reservations.Data.Migrations
                     b.Property<Guid>("RoomId")
                         .HasColumnName("room_id")
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnName("start_time")
-                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id")
                         .HasName("pk_reservations");

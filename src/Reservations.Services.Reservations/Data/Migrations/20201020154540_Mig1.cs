@@ -19,8 +19,6 @@ namespace Reservations.Services.Reservations.Data.Migrations
                     id = table.Column<Guid>(nullable: false),
                     room_id = table.Column<Guid>(nullable: false),
                     person_count = table.Column<int>(nullable: false),
-                    start_time = table.Column<DateTime>(nullable: false),
-                    end_time = table.Column<DateTime>(nullable: false),
                     duration = table.Column<NpgsqlRange<DateTime>>(nullable: false)
                 },
                 constraints: table =>

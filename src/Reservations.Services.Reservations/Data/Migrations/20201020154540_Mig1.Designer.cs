@@ -11,7 +11,7 @@ using Reservations.Services.Reservations.Data;
 namespace Reservations.Services.Reservations.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201020143832_Mig1")]
+    [Migration("20201020154540_Mig1")]
     partial class Mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,10 +34,6 @@ namespace Reservations.Services.Reservations.Data.Migrations
                         .HasColumnName("duration")
                         .HasColumnType("tsrange");
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnName("end_time")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<int>("PersonCount")
                         .HasColumnName("person_count")
                         .HasColumnType("integer");
@@ -45,10 +41,6 @@ namespace Reservations.Services.Reservations.Data.Migrations
                     b.Property<Guid>("RoomId")
                         .HasColumnName("room_id")
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnName("start_time")
-                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id")
                         .HasName("pk_reservations");
