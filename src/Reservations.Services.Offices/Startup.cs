@@ -62,6 +62,11 @@ namespace Reservations.Services.Offices
                       {
                           e.Consumer<CheckOfficeAvailabilityConsumer>(provider: context);
                       });
+
+                      f.ReceiveEndpoint(f.MessageTopology.EntityNameFormatter.FormatEntityName<CheckOfficeHoursAvailable>(), e =>
+                      {
+                          e.Consumer<CheckOfficeHoursAvailableConsumer>(provider: context);
+                      });
                   })
                   .AddAutoMapper(typeof(Startup).Assembly)
                   .AddCaching();

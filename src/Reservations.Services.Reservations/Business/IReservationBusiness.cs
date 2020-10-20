@@ -9,5 +9,7 @@ namespace Reservations.Services.Reservations.Business
     public interface IReservationBusiness : IBusinessBase
     {
         public Task<List<RoomViewModel>> CheckAvailabilityAsync(CheckAvailableRoomsCommand command);
+
+        public Task CreateReservationAsync(CreateReservationCommand command);
     }
 }

@@ -12,6 +12,8 @@ using Reservations.Common.Cache;
 using Reservations.Common.Consul;
 using Reservations.Common.Swagger;
 using Reservations.Services.Common.Types;
+using Reservations.Services.Contracts.Requests;
+using Reservations.Services.Rooms.Business.Consumers;
 using Reservations.Services.Rooms.Data;
 using Reservations.Services.Rooms.Initializations;
 
@@ -45,6 +47,10 @@ namespace Reservations.Services.Rooms
                   },
                   factoryConfigurator: (f, context) =>
                   {
+                      f.ReceiveEndpoint(f.MessageTopology.EntityNameFormatter.FormatEntityName<CheckRoomCapacity>(), e =>
+                      {
+                          e.Consumer<CheckRoomCapacityConsumer>(provider: context);
+                      });
                   })
                   .AddAutoMapper(typeof(Startup).Assembly)
                   .AddCaching();

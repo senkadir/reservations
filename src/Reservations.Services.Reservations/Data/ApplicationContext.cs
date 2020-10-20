@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Reservations.Services.Reservations.Entities;
 
 namespace Reservations.Services.Reservations.Data
 {
@@ -19,5 +20,7 @@ namespace Reservations.Services.Reservations.Data
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Startup).Assembly);
         }
+
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }

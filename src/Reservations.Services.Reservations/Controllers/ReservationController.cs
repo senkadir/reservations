@@ -16,18 +16,22 @@ namespace Reservations.Services.Reservations.Controllers
         }
 
         /// <summary>
-        /// Create reservation
+        /// Create new reservation
         /// </summary>
+        /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> CreateReservationAsync()
+        public async Task<IActionResult> CreateReservationAsync([FromBody] CreateReservationCommand command)
         {
+            await _reservationBusiness.CreateReservationAsync(command);
+
             return Ok();
         }
 
         /// <summary>
         /// Check available rooms by current location
         /// </summary>
+        /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost, Route("available-rooms")]
         public async Task<IActionResult> CheckAvailableRoomsAsync([FromBody] CheckAvailableRoomsCommand command)

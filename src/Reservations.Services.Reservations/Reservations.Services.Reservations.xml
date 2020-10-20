@@ -4,16 +4,18 @@
         <name>Reservations.Services.Reservations</name>
     </assembly>
     <members>
-        <member name="M:Reservations.Services.Reservations.Controllers.ReservationController.CreateReservationAsync">
+        <member name="M:Reservations.Services.Reservations.Controllers.ReservationController.CreateReservationAsync(Reservations.Services.Reservations.Commands.CreateReservationCommand)">
             <summary>
-            Create reservation
+            Create new reservation
             </summary>
+            <param name="command"></param>
             <returns></returns>
         </member>
         <member name="M:Reservations.Services.Reservations.Controllers.ReservationController.CheckAvailableRoomsAsync(Reservations.Services.Reservations.Commands.CheckAvailableRoomsCommand)">
             <summary>
             Check available rooms by current location
             </summary>
+            <param name="command"></param>
             <returns></returns>
         </member>
         <member name="M:Reservations.Services.Offices.Controllers.ServiceController.Ping">
