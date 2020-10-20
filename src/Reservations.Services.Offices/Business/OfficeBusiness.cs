@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Reservations.Common.Shared;
 using Reservations.Services.Common.Types;
 using Reservations.Services.Contracts.Events.Offices;
 using Reservations.Services.Offices.Commands;
@@ -36,10 +37,7 @@ namespace Reservations.Services.Offices.Business
 
         public async Task CreateAsync(CreateOfficeCommand command)
         {
-            if (command == null)
-            {
-                throw new ArgumentNullException(nameof(command));
-            }
+            Check.NotNull(command, nameof(command));
 
             Office office = _mapper.Map<Office>(command);
 
