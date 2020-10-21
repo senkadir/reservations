@@ -10,6 +10,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Reservations.Services.Rooms.Controllers.ResourceController.CreateResource(Reservations.Services.Rooms.Commands.CreateResourceCommand)">
+            <summary>
+            Create new resource
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
         <member name="M:Reservations.Services.Rooms.Controllers.RoomController.CreateRoomAsync(Reservations.Services.Rooms.Commands.CreateRoomCommand)">
             <summary>
             Create new room
@@ -17,7 +24,7 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.GetRoomsByOffice(Reservations.Services.Rooms.Commands.GetAvailableRoomsByOfficesCommand)">
+        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.GetRoomsByOfficeAsync(Reservations.Services.Rooms.Commands.GetAvailableRoomsByOfficesCommand)">
             <summary>
             Get available rooms by offices
             </summary>

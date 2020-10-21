@@ -34,9 +34,17 @@ namespace Reservations.Services.Rooms.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost, Route("by-offices")]
-        public async Task<IActionResult> GetRoomsByOffice([FromBody] GetAvailableRoomsByOfficesCommand command)
+        public async Task<IActionResult> GetRoomsByOfficeAsync([FromBody] GetAvailableRoomsByOfficesCommand command)
         {
             return Ok(await _roomBusiness.AvailableRoomsByOfficesAsync(command));
+        }
+
+        [HttpPost, Route("resource")]
+        public async Task<IActionResult> AddResourceToRoomAsync([FromBody] AddResourceToRoomCommand command)
+        {
+            await _roomBusiness.AddResourceAsync(command);
+
+            return Ok();
         }
     }
 }

@@ -22,5 +22,9 @@ namespace Reservations.Services.Rooms.Data
         }
 
         public DbSet<Room> Rooms { get; set; }
+
+        public DbSet<Resource> Resources { get; set; }
+
+        public DbSet<RoomResource> RoomResources { get; set; }
     }
 }

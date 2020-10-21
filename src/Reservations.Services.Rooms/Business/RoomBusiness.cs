@@ -64,5 +64,43 @@ namespace Reservations.Services.Rooms.Business
 
             await _applicationContext.SaveChangesAsync();
         }
+
+        public async Task AddResourceAsync(AddResourceToRoomCommand command)
+        {
+            Check.NotNull(command, nameof(command));
+
+            var resource = await _applicationContext.Resources
+                                                    .Where(x => x.Id == command.ResourceId)
+                                                    .FirstOrDefaultAsync();
+
+            Check.NotNull(resource, nameof(resource));
+
+            if (resource.Specific)
+            {
+                var checkSpecificResourceAlreadyAdded = await _applicationContext.RoomResources
+                                                                                           .Where(x => x.Resource.Specific && x.RoomId == command.RoomId)
+                                                                                           .AnyAsync();
+
+                if (checkSpecificResourceAlreadyAdded)
+                {
+                    throw new Exception("Can not add two specific resource to the same room");
+                }
+            }
+
+            var usedResourcesQuantity = await _applicationContext.RoomResources
+                                                                 .Where(x => x.ResourceId == command.ResourceId)
+                                                                 .SumAsync(x => x.Quantity);
+
+            if (usedResourcesQuantity + command.Quantity > resource.TotalQuantity)
+            {
+                throw new Exception("There is no available resource");
+            }
+
+            RoomResource roomResource = _mapper.Map<RoomResource>(command);
+
+            await _applicationContext.RoomResources.AddAsync(roomResource);
+
+            await _applicationContext.SaveChangesAsync();
+        }
     }
 }
