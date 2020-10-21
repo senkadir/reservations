@@ -2,6 +2,7 @@
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using NpgsqlTypes;
+using Reservations.Common.Mvc;
 using Reservations.Common.Shared;
 using Reservations.Services.Common.Types;
 using Reservations.Services.Contracts.Requests;
@@ -93,17 +94,17 @@ namespace Reservations.Services.Reservations.Business
 
             if (roomAvailabilityResponse.Message.Available == false)
             {
-                throw new Exception("Please make a selection according to the number of office capacity.");
+                throw new ServiceException("Please make a selection according to the number of office capacity.");
             }
 
             if (officeAvailabilityResponse.Message.Available == false)
             {
-                throw new Exception("Please make an appropriate choice for office hours.");
+                throw new ServiceException("Please make an appropriate choice for office hours.");
             }
 
             if (reservationAvailabilityResponse == false)
             {
-                throw new Exception("Please choose available range of date to make an reservation");
+                throw new ServiceException("Please choose available range of date to make an reservation");
             }
 
             Reservation reservation = _mapper.Map<Reservation>(command);

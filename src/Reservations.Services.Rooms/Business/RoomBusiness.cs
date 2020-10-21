@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Reservations.Common.Mvc;
 using Reservations.Common.Shared;
 using Reservations.Services.Common.Types;
 using Reservations.Services.Contracts.Requests;
@@ -55,7 +56,7 @@ namespace Reservations.Services.Rooms.Business
 
             if (response.Message.Exists == false)
             {
-                throw new Exception($"Office not found with id: {command.OfficeId}");
+                throw new ServiceException($"Office not found with id: {command.OfficeId}");
             }
 
             Room room = _mapper.Map<Room>(command);
@@ -83,7 +84,7 @@ namespace Reservations.Services.Rooms.Business
 
                 if (checkSpecificResourceAlreadyAdded)
                 {
-                    throw new Exception("Can not add two specific resource to the same room");
+                    throw new ServiceException("Can not add two specific resource to the same room");
                 }
             }
 
@@ -93,7 +94,7 @@ namespace Reservations.Services.Rooms.Business
 
             if (usedResourcesQuantity + command.Quantity > resource.TotalQuantity)
             {
-                throw new Exception("There is no available resource");
+                throw new ServiceException("There is no available resource");
             }
 
             RoomResource roomResource = _mapper.Map<RoomResource>(command);

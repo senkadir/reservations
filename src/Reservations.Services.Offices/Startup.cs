@@ -2,7 +2,6 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Reservations.Common.Broker;
 using Reservations.Common.Cache;
 using Reservations.Common.Consul;
+using Reservations.Common.Mvc;
 using Reservations.Common.Swagger;
 using Reservations.Services.Common.Types;
 using Reservations.Services.Contracts.Events;
@@ -33,7 +33,7 @@ namespace Reservations.Services.Offices
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
+            services.SetupMvc()
                     .AddFluentValidation(x =>
                      {
                          x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);
@@ -94,8 +94,10 @@ namespace Reservations.Services.Offices
             services.AddSwaggerDocs();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
+            app.SetupPipeline();
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
