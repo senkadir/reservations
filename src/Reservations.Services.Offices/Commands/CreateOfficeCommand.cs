@@ -6,8 +6,8 @@ namespace Reservations.Services.Offices.Commands
     {
         public string Location { get; set; }
 
-        public DateTime OpenTime { get; set; }
+        public TimeSpan OpenTime { get; set; }
 
-        public DateTime CloseTime { get; set; }
+        public TimeSpan CloseTime { get; set; }
     }
 }

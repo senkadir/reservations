@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Moq" Version="4.14.7" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Reservations.Common\Reservations.Common.csproj" />
+    <ProjectReference Include="..\..\src\Reservations.Services.Contracts\Reservations.Services.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Reservations.Services.Offices\Reservations.Services.Offices.csproj" />
+    <ProjectReference Include="..\Reservations.Services.Tests.Common\Reservations.Services.Tests.Common.csproj" />
+  </ItemGroup>
+
+</Project>
