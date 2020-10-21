@@ -139,6 +139,26 @@ services:
     restart: 
       on-failure
 
+  ##45013 - gateway service
+  reservations.services.gateway:
+    image: reservations/reservations.services.gateway
+    build:
+      context: ./src
+      dockerfile: ./Reservations.Services.Gateway/Dockerfile
+    container_name: gateway
+    ports:
+      - '45013:5000'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    networks:
+      - reservations
+    depends_on:
+      - consul
+      - rabbitmq
+      - postgresdb
+    restart: 
+      on-failure
+
 networks:
   reservations:
     name: reservations-network

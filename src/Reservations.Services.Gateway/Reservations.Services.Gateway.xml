@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Reservations.Services.Gateway</name>
+    </assembly>
+    <members>
+        <member name="M:Reservations.Services.Gateway.Controllers.ServiceController.Ping">
+            <summary>
+            Service health check endpoint
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

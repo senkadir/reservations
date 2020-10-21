@@ -1,0 +1,36 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/offices/v1/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "offices",
+      "UpstreamPathTemplate": "/offices/{everything}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/reservations/v1/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "reservations",
+      "UpstreamPathTemplate": "/reservations/{everything}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/rooms/v1/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "rooms",
+      "UpstreamPathTemplate": "/rooms/{everything}"
+    }
+  ],
+  "Aggregates": [],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul"
+    },
+    "HttpHandlerOptions": {
+      "AllowAutoRedirect": false,
+      "UseCookieContainer": false,
+      "UseTracing": false
+    },
+    "RequestIdKey": "X-RequestId"
+  }
+}
