@@ -17,6 +17,12 @@
       "DownstreamScheme": "http",
       "ServiceName": "rooms-dev",
       "UpstreamPathTemplate": "/rooms/{everything}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/identity/v1/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "identity-dev",
+      "UpstreamPathTemplate": "/identity/{everything}"
     }
   ],
   "Aggregates": [],

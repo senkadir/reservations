@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Reservations.Services.Identity</name>
+    </assembly>
+    <members>
+        <member name="M:Reservations.Services.Identity.Controllers.IdentityController.Login(Reservations.Services.Identity.Commands.LoginCommand)">
+            <summary>
+            Get security token
+            </summary>
+            <param name="command"></param>
+            <returns>1 hour jwt token with fake claims</returns>
+        </member>
+        <member name="M:Reservations.Services.Gateway.Controllers.ServiceController.Ping">
+            <summary>
+            Service health check endpoint
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

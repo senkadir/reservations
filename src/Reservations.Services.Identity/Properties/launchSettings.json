@@ -1,0 +1,22 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:62295",
+      "sslPort": 44376
+    }
+  },
+  "profiles": {
+    "Reservations.Services.Identity": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "docs",
+      "applicationUrl": "https://localhost:45028;http://localhost:45029",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

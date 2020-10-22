@@ -19,11 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reservations.Services.Rooms
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reservations.Services.Reservations", "src\Reservations.Services.Reservations\Reservations.Services.Reservations.csproj", "{32F022D4-0066-4EB6-884B-21ECC742DBA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservations.Services.Offices.Tests", "tests\Reservations.Services.Offices.Tests\Reservations.Services.Offices.Tests.csproj", "{7C028CFA-1EF9-4DB4-AAB7-EB08553865B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reservations.Services.Offices.Tests", "tests\Reservations.Services.Offices.Tests\Reservations.Services.Offices.Tests.csproj", "{7C028CFA-1EF9-4DB4-AAB7-EB08553865B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservations.Services.Tests.Common", "tests\Reservations.Services.Tests.Common\Reservations.Services.Tests.Common.csproj", "{8BEFA31E-71A1-410A-97DC-760C9E93BDFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reservations.Services.Tests.Common", "tests\Reservations.Services.Tests.Common\Reservations.Services.Tests.Common.csproj", "{8BEFA31E-71A1-410A-97DC-760C9E93BDFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reservations.Services.Gateway", "src\Reservations.Services.Gateway\Reservations.Services.Gateway.csproj", "{E2E47723-13AC-49E6-A1FB-CD90CD8EBE9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservations.Services.Identity", "src\Reservations.Services.Identity\Reservations.Services.Identity.csproj", "{B2F1DA3C-7EAE-48F5-AB5F-B97E7F5AE5C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{E2E47723-13AC-49E6-A1FB-CD90CD8EBE9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2E47723-13AC-49E6-A1FB-CD90CD8EBE9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2E47723-13AC-49E6-A1FB-CD90CD8EBE9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F1DA3C-7EAE-48F5-AB5F-B97E7F5AE5C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F1DA3C-7EAE-48F5-AB5F-B97E7F5AE5C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F1DA3C-7EAE-48F5-AB5F-B97E7F5AE5C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F1DA3C-7EAE-48F5-AB5F-B97E7F5AE5C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +83,7 @@ Global
 		{7C028CFA-1EF9-4DB4-AAB7-EB08553865B3} = {8D706536-9D99-41E1-BAE9-3BC2EC5168A8}
 		{8BEFA31E-71A1-410A-97DC-760C9E93BDFA} = {8D706536-9D99-41E1-BAE9-3BC2EC5168A8}
 		{E2E47723-13AC-49E6-A1FB-CD90CD8EBE9B} = {C8567D3A-094E-47D3-B6CC-64C134953861}
+		{B2F1DA3C-7EAE-48F5-AB5F-B97E7F5AE5C0} = {C8567D3A-094E-47D3-B6CC-64C134953861}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1392148D-2C5F-49DB-8327-1E7F30BF1A47}

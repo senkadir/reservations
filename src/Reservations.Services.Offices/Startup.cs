@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Reservations.Common.Authentication;
 using Reservations.Common.Broker;
 using Reservations.Common.Cache;
 using Reservations.Common.Consul;
@@ -92,10 +93,14 @@ namespace Reservations.Services.Offices
             });
 
             services.AddSwaggerDocs();
+
+            services.AddSecurity();
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseAuthentication();
+
             app.SetupPipeline();
 
             app.UseRouting();
