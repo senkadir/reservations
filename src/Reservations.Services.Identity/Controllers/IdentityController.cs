@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Reservations.Services.Identity.Commands;
 using System;
@@ -17,7 +18,7 @@ namespace Reservations.Services.Identity.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns>1 hour jwt token with fake claims</returns>
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public IActionResult Login([FromBody] LoginCommand command)
         {
             var claims = new List<Claim>

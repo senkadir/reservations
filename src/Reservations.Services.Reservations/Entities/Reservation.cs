@@ -9,6 +9,8 @@ namespace Reservations.Services.Reservations.Entities
 
         public Guid RoomId { get; set; }
 
+        public Guid CreatedBy { get; set; }
+
         public int PersonCount { get; set; }
 
         public NpgsqlRange<DateTime> Duration { get; set; }

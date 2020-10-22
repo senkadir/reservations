@@ -1,19 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
-using MassTransit;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Reservations.Common.Broker;
 using Reservations.Common.Cache;
 using Reservations.Common.Consul;
 using Reservations.Common.Mvc;
@@ -50,6 +40,8 @@ namespace Reservations.Services.Identity
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseAuthentication();
+
             app.SetupPipeline();
 
             app.UseRouting();

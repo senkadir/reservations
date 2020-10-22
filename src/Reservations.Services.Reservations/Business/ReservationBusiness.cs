@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MassTransit;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using NpgsqlTypes;
 using Reservations.Common.Mvc;
@@ -15,6 +16,7 @@ using Reservations.Services.Reservations.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Reservations.Services.Reservations.Business
@@ -25,16 +27,19 @@ namespace Reservations.Services.Reservations.Business
         private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
         private readonly ApplicationContext _applicationContext;
+        private readonly IHttpContextAccessor _contextAccessor;
 
         public ReservationBusiness(IBus bus,
                                    IRoomService roomService,
                                    IMapper mapper,
-                                   ApplicationContext applicationContext)
+                                   ApplicationContext applicationContext,
+                                   IHttpContextAccessor contextAccessor)
         {
             _bus = bus;
             _roomService = roomService;
             _mapper = mapper;
             _applicationContext = applicationContext;
+            _contextAccessor = contextAccessor;
         }
 
         public async Task<List<RoomViewModel>> CheckAvailabilityAsync(CheckAvailableRoomsCommand command)
@@ -108,6 +113,19 @@ namespace Reservations.Services.Reservations.Business
             }
 
             Reservation reservation = _mapper.Map<Reservation>(command);
+
+            var userClaim = _contextAccessor.HttpContext
+                                                    .User
+                                                    .Claims
+                                                    .Where(x => x.Type == ClaimTypes.NameIdentifier)
+                                                    .FirstOrDefault();
+
+            if (userClaim == null)
+            {
+                throw new ServiceException("User not found");
+            }
+
+            reservation.CreatedBy = Guid.Parse(userClaim.Value);
 
             await _applicationContext.Reservations.AddAsync(reservation);
 

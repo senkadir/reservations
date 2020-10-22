@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Reservations.Services.Rooms.Business;
 using Reservations.Services.Rooms.Commands;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace Reservations.Services.Rooms.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost, Route("by-offices")]
+        [HttpPost, Route("by-offices"), AllowAnonymous]
         public async Task<IActionResult> GetRoomsByOfficeAsync([FromBody] GetAvailableRoomsByOfficesCommand command)
         {
             return Ok(await _roomBusiness.AvailableRoomsByOfficesAsync(command));
