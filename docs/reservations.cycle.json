@@ -1,0 +1,363 @@
+{
+	"info": {
+		"_postman_id": "44b57410-1b73-43ec-a43b-3d87c70dd4cb",
+		"name": "Reservations-Cycle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e14be61-b41d-46f6-b9ab-c3b29d1d03df",
+						"exec": [
+							"pm.test(\"set token env\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.environment.set(\"token\", jsonData.token);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9a16a09c-6393-4a54-8a05-0ef51ce4071f",
+						"exec": [
+							"pm.globals.set(\"port-gateway\", 45013);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"test\",\r\n    \"location\": \"Amsterdam\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port-gateway}}/identity/identity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port-gateway}}",
+					"path": [
+						"identity",
+						"identity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get current offices",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c958f899-36df-480b-bba7-f96edcb3e0f5",
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    var amsterdam = jsonData.find((column) => {return column.location == 'Amsterdam'});\r",
+							"\r",
+							"    var berlin = jsonData.find((column) => {return column.location == 'Berlin'});\r",
+							"\r",
+							"    pm.environment.set(\"amsterdam_id\", amsterdam.id);\r",
+							"    pm.environment.set(\"berlin_id\", berlin.id);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port-gateway}}/offices/offices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port-gateway}}",
+					"path": [
+						"offices",
+						"offices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get resources",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f7d633c-e865-4547-bad7-d1842f9ac34c",
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"  var whiteBoard = jsonData.find((column) => {return column.name == 'Portable White Board'});\r",
+							"\r",
+							"  var markerPenBlue = jsonData.find((column) => {return column.name == 'Marker Pen Blue'});\r",
+							"\r",
+							"    pm.environment.set(\"whiteBoard\", whiteBoard.id);\r",
+							"    pm.environment.set(\"markerPenBlue\", markerPenBlue.id);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port-gateway}}/rooms/resources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port-gateway}}",
+					"path": [
+						"rooms",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check available rooms  for reservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2f3c67f-ba7d-46e1-9a3c-c6bea1952690",
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.environment.set(\"amsterdam_first_room\", jsonData[0].id);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"startTime\": \"11:30\",\r\n    \"endTime\": \"17:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port-gateway}}/reservations/reservations/available-rooms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port-gateway}}",
+					"path": [
+						"reservations",
+						"reservations",
+						"available-rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new reservation for room",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"officeId\": \"{{amsterdam_id}}\",\r\n    \"roomId\": \"{{amsterdam_first_room}}\",\r\n    \"personCount\": 3,\r\n    \"startDate\": \"2020-11-01T10:00\",\r\n    \"endDate\": \"2020-11-01T11:30\",\r\n    \"resources\": [\r\n        \"{{whiteBoard}}\",\r\n        \"{{markerPenBlue}}\"\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port-gateway}}/reservations/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port-gateway}}",
+					"path": [
+						"reservations",
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rooms and Resources",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port-gateway}}/rooms/rooms/resources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port-gateway}}",
+					"path": [
+						"rooms",
+						"rooms",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get room resources",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port-gateway}}/rooms/rooms/{{amsterdam_first_room}}/resources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port-gateway}}",
+					"path": [
+						"rooms",
+						"rooms",
+						"{{amsterdam_first_room}}",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My reservations",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port-gateway}}/reservations/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port-gateway}}",
+					"path": [
+						"reservations",
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

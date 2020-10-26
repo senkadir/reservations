@@ -38,6 +38,11 @@ namespace Reservations.Services.Offices.Controllers
             return Ok(await _officeBusiness.GetAsync());
         }
 
+        /// <summary>
+        /// Get available rooms for a specific location with a date range
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost, Route("availables")]
         public async Task<IActionResult> CheckAvailableOffices([FromBody] CheckOfficeAvailailityCommand command)
         {
