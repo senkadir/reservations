@@ -3,11 +3,11 @@ Testing project
 
 When the application is run with docker, 4501x ports will be reserved for services and 4500x ports for infrastructure. Port 45013 is reserved for the application gateway.
 
-Test data will be added to the system automatically. [See](https://github.com/senkadir/reservations/blob/master/src/Reservations.Services.Offices/Initializations/Extensions.cs)
+Test data will be added to the system automatically. `See <https://github.com/senkadir/reservations/blob/master/src/Reservations.Services.Offices/Initializations/Extensions.cs)>`_
 
 The structure of the test data is shown in the picture below.
 
-![image](https://user-images.githubusercontent.com/10263337/97174625-65cd6600-17a3-11eb-96ac-e3138afe727f.png)
+.. image:: https://user-images.githubusercontent.com/10263337/97174625-65cd6600-17a3-11eb-96ac-e3138afe727f.png
 
 For a quick start, two collection files that can be run with Postman are placed under the docs folder in the main directory. 
 
