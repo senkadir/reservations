@@ -1,0 +1,584 @@
+{
+	"info": {
+		"_postman_id": "6f63ad09-9c4c-48d8-8db1-a23585a5d89e",
+		"name": "Reservations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Offices",
+			"item": [
+				{
+					"name": "Health check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1ac8ba44-edab-4588-b834-caf778bee65e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/offices/service",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"offices",
+								"service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current offices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "03b6d1b6-9feb-4e45-8b01-658123fa7187",
+								"exec": [
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    \r",
+									"    var amsterdam = jsonData.find((column) => {return column.location == 'Amsterdam'});\r",
+									"\r",
+									"    var berlin = jsonData.find((column) => {return column.location == 'Berlin'});\r",
+									"\r",
+									"    pm.environment.set(\"amsterdam_id\", amsterdam.id);\r",
+									"    pm.environment.set(\"berlin_id\", berlin.id);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE2NTM5ZWU0LTk5NDMtNDBiMC1iYzlmLWQ5MGYzM2RmZDJkNCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InRlc3RAdGVzdC5jb20iLCJsb2NhdGlvbiI6IkFtc3RlcmRhbSIsImV4cCI6MTYwMzM1NzQyMSwiaXNzIjoicmVzZXJ2YXRpb25zLmNvbSIsImF1ZCI6InJlc2VydmF0aW9ucy5jb20ifQ.fC-w3uHUUloaiyRiZH4jqInSLO1VSViMzUIT7K-iYcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/offices/offices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"offices",
+								"offices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check available offices",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startTime\": \"08:30\",\r\n    \"endTime\": \"16:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/offices/offices/availables",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"offices",
+								"offices",
+								"availables"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create office",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"location\": \"string string string string string string string string string string s\",\r\n    \"openTime\": \"08:00\",\r\n    \"closeTime\": \"15:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/offices/offices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"offices",
+								"offices"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Rooms",
+			"item": [
+				{
+					"name": "Create new room",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE2NTM5ZWU0LTk5NDMtNDBiMC1iYzlmLWQ5MGYzM2RmZDJkNCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InRlc3RAdGVzdC5jb20iLCJsb2NhdGlvbiI6IkFtc3RlcmRhbSIsImV4cCI6MTYwMzM1NzQyMSwiaXNzIjoicmVzZXJ2YXRpb25zLmNvbSIsImF1ZCI6InJlc2VydmF0aW9ucy5jb20ifQ.fC-w3uHUUloaiyRiZH4jqInSLO1VSViMzUIT7K-iYcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"officeId\": \"{{amsterdam_id}}\",\r\n    \"name\": \"Amsterdam room 1\",\r\n    \"capacity\": 10,\r\n    \"chairCount\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/rooms/rooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"rooms",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rooms by offices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8ccf621-5419-42bc-a30c-451c44855ebd",
+								"exec": [
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.environment.set(\"amsterdam_first_room\", jsonData[0].id);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE2NTM5ZWU0LTk5NDMtNDBiMC1iYzlmLWQ5MGYzM2RmZDJkNCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InRlc3RAdGVzdC5jb20iLCJsb2NhdGlvbiI6IkFtc3RlcmRhbSIsImV4cCI6MTYwMzM1NzQyMSwiaXNzIjoicmVzZXJ2YXRpb25zLmNvbSIsImF1ZCI6InJlc2VydmF0aW9ucy5jb20ifQ.fC-w3uHUUloaiyRiZH4jqInSLO1VSViMzUIT7K-iYcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"offices\": [\r\n        \"{{amsterdam_id}}\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/rooms/rooms/by-offices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"rooms",
+								"rooms",
+								"by-offices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new resource",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"specific\": false,\r\n    \"name\": \"Table\",\r\n    \"totalQuantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port-gateway}}/rooms/resources",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"rooms",
+								"resources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add resource to room",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resourceId\": \"92000ec3-0950-40d7-a46a-b1664525d12b\",\r\n    \"roomId\": \"{{amsterdam_first_room}}\",\r\n    \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port-gateway}}/rooms/rooms/resource",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"rooms",
+								"rooms",
+								"resource"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all resources in the all rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port-gateway}}/rooms/rooms/resources",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"rooms",
+								"rooms",
+								"resources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get resources in the room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port-gateway}}/rooms/rooms/{{room-id}}/resources",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"rooms",
+								"rooms",
+								"{{room-id}}",
+								"resources"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Resources",
+			"item": [
+				{
+					"name": "Create new resource in the system",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"specific\": false,\r\n    \"name\":\"The resource\",\r\n    \"totalQuantity\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/room/resources",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"room",
+								"resources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all resources",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/room/resources",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"room",
+								"resources"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reservations",
+			"item": [
+				{
+					"name": "Check available rooms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startTime\": \"11:30\",\r\n    \"endTime\": \"17:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:45024/api/reservations/v1/reservations/available-rooms",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "45024",
+							"path": [
+								"api",
+								"reservations",
+								"v1",
+								"reservations",
+								"available-rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new reservation for room",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE2NTM5ZWU0LTk5NDMtNDBiMC1iYzlmLWQ5MGYzM2RmZDJkNCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InRlc3RAdGVzdC5jb20iLCJsb2NhdGlvbiI6IkFtc3RlcmRhbSIsImV4cCI6MTYwMzM1NzQyMSwiaXNzIjoicmVzZXJ2YXRpb25zLmNvbSIsImF1ZCI6InJlc2VydmF0aW9ucy5jb20ifQ.fC-w3uHUUloaiyRiZH4jqInSLO1VSViMzUIT7K-iYcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"officeId\": \"{{amsterdam_id}}\",\r\n    \"roomId\": \"{{amsterdam_first_room}}\",\r\n    \"personCount\": 3,\r\n    \"startDate\": \"2020-10-21T10:01\",\r\n    \"endDate\": \"2020-10-21T11:30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:45012/api/reservations/v1/reservations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "45012",
+							"path": [
+								"api",
+								"reservations",
+								"v1",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My reservations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/reservations/reservations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"reservations",
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Identity",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "672bdce6-9b51-409e-be15-caf66b0c1b92",
+								"exec": [
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.environment.set(\"token\", jsonData);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"test\",\r\n    \"location\": \"Amsterdam\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port-gateway}}/identity/identity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port-gateway}}",
+							"path": [
+								"identity",
+								"identity"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
