@@ -277,14 +277,8 @@ namespace Reservations.Services.Offices.Tests.Business
             await Assert.ThrowsAsync<ArgumentNullException>(func);
         }
 
-        public static IEnumerable<object[]> TestData =>
-        new List<object[]> {
-            new object[]{ new TimeSpan(0,0,0), new TimeSpan(0,0,0)},
-            new object[]{ new TimeSpan(0,0,0), new TimeSpan(0,0,0)},
-        };
-
         [Fact]
-        public async Task AvailableOfficesAsync_Should_Return_Available_Offices()
+        public async Task AvailableOfficesAsync_Should_Return_Available_Office_By_Current_User_Is_Location()
         {
             //Arrange
             var context = Context;
@@ -323,28 +317,13 @@ namespace Reservations.Services.Offices.Tests.Business
                 EndTime = new TimeSpan(16, 0, 0)
             };
 
-            CheckOfficeAvailailityCommand commandShouldCoverBerlin = new CheckOfficeAvailailityCommand
-            {
-                //Should cover amsterdam
-                Location ="Amsterdam",
-                StartTime = new TimeSpan(8, 0, 0),
-                EndTime = new TimeSpan(18, 0, 0)
-            };
-
-            CheckOfficeAvailailityCommand commandShouldCoverNone = new CheckOfficeAvailailityCommand
-            {
-                //Should cover none of them
-                StartTime = new TimeSpan(11, 0, 0),
-                EndTime = new TimeSpan(21, 0, 0)
-            };
-
             //Act
 
-            var officesForBoth = await officeBusiness.AvailableOfficesAsync(commandShouldCoverBoth);
-            var officeForBerlin = await officeBusiness.AvailableOfficesAsync(commandShouldCoverBerlin);
-            var officeForNone = await officeBusiness.AvailableOfficesAsync(commandShouldCoverNone);
+            var amsterdamOfficeId = await officeBusiness.AvailableOfficesAsync(commandShouldCoverBoth);
 
             //Assert
+            Assert.Equal(amsterdamOffice.Id, amsterdamOfficeId);
+
         }
     }
 }

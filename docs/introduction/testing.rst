@@ -3,7 +3,7 @@ Testing project
 
 When the application is run with docker, 4501x ports will be reserved for services and 4500x ports for infrastructure. Port 45013 is reserved for the application gateway.
 
-Test data will be added to the system automatically. `See <https://github.com/senkadir/reservations/blob/master/src/Reservations.Services.Offices/Initializations/Extensions.cs)>`_
+Test data will be added to the system automatically. `See <https://github.com/senkadir/reservations/blob/master/src/Reservations.Services.Offices/Initializations/Extensions.cs>`_
 
 The structure of the test data is shown in the picture below.
 

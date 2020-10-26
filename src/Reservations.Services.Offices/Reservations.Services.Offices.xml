@@ -17,6 +17,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Reservations.Services.Offices.Controllers.OfficeController.CheckAvailableOffices(Reservations.Services.Offices.Commands.CheckOfficeAvailailityCommand)">
+            <summary>
+            Get available rooms for a specific location with a date range
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
         <member name="M:Reservations.Services.Offices.Controllers.ServiceController.Ping">
             <summary>
             Service health check endpoint

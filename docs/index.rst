@@ -7,7 +7,8 @@ The bird's eye view of the project is shown in the image below.
 
 Architecture of the system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. image:: ../images/architecturr.jpg
+.. image:: https://user-images.githubusercontent.com/10263337/97175889-3ddf0200-17a5-11eb-9911-c6acf3b7dd46.png
+
 
 
 All requests from outside come to the gateway service. After the necessary operations on the gateway (routing, authentication, etc.), the request is forwarded to the relevant sub-service.
@@ -15,8 +16,8 @@ All requests from outside come to the gateway service. After the necessary opera
 Architecturel parts of the system:
 ^^^^^^^^^^^^^^^^^^
 
-    1. Service discovery: `Consul <https://www.consul.io/)>`_
-    2. Gateway `Consul <https://github.com/ThreeMammals/Ocelot>`_
+    1. Service discovery: `Consul <https://www.consul.io>`_
+    2. Gateway `Ocelot <https://github.com/ThreeMammals/Ocelot>`_
     3. Message broker: `RabbitMq <https://www.rabbitmq.com/>`_
     4. Distributed cache: `Redis <https://redis.io/>`_
     5. Containerization: `Docker <https://www.docker.com/>`_
