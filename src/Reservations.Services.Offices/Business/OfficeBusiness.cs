@@ -80,15 +80,16 @@ namespace Reservations.Services.Offices.Business
                                       .AnyAsync(x => x.Id == officeId);
         }
 
-        public async Task<List<Guid>> AvailableOfficesAsync(CheckAvailableOfficesCommand command)
+        public async Task<Guid> AvailableOfficesAsync(CheckOfficeAvailailityCommand command)
         {
             Check.NotNull(command, nameof(command));
 
             return await _applicationContext.Offices
                                             .Where(x => x.OpenTime <= command.StartTime
-                                                     && x.CloseTime >= command.EndTime)
+                                                     && x.CloseTime >= command.EndTime
+                                                     && x.Location == command.Location)
                                             .Select(x => x.Id)
-                                            .ToListAsync();
+                                            .FirstOrDefaultAsync();
         }
     }
 }

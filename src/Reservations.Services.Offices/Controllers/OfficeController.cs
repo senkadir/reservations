@@ -39,7 +39,7 @@ namespace Reservations.Services.Offices.Controllers
         }
 
         [HttpPost, Route("availables")]
-        public async Task<IActionResult> CheckAvailableOffices([FromBody] CheckAvailableOfficesCommand command)
+        public async Task<IActionResult> CheckAvailableOffices([FromBody] CheckOfficeAvailailityCommand command)
         {
             return Ok(await _officeBusiness.AvailableOfficesAsync(command));
         }

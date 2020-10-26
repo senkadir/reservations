@@ -11,7 +11,7 @@
   "profiles": {
     "Reservations.Services.Identity": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "docs",
       "applicationUrl": "https://localhost:45028;http://localhost:45029",
       "environmentVariables": {

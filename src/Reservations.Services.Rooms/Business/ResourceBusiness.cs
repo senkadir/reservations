@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using Reservations.Common.Shared;
 using Reservations.Services.Common.Types;
 using Reservations.Services.Rooms.Commands;
 using Reservations.Services.Rooms.Data;
 using Reservations.Services.Rooms.Entities;
+using Reservations.Services.Rooms.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Reservations.Services.Rooms.Business
@@ -29,6 +33,13 @@ namespace Reservations.Services.Rooms.Business
             await _applicationContext.Resources.AddAsync(resource);
 
             await _applicationContext.SaveChangesAsync();
+        }
+
+        public async Task<List<ResourceViewModel>> GetResourcesAsync()
+        {
+            return await _applicationContext.Resources
+                                     .ProjectTo<ResourceViewModel>(_mapper.ConfigurationProvider)
+                                     .ToListAsync();
         }
     }
 }

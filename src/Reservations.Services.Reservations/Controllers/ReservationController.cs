@@ -38,5 +38,15 @@ namespace Reservations.Services.Reservations.Controllers
         {
             return Ok(await _reservationBusiness.CheckAvailabilityAsync(command));
         }
+
+        /// <summary>
+        /// Get my reservations
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetMyReservations()
+        {
+            return Ok(await _reservationBusiness.GetMyReservationsAsync());
+        }
     }
 }

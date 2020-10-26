@@ -42,7 +42,12 @@ namespace Reservations.Services.Identity.Controllers
              signingCredentials: creds
              );
 
-            return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+            var result = new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token)
+            };
+
+            return Ok(result);
         }
     }
 }

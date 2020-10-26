@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Reservations.Services.Rooms.Business;
 using Reservations.Services.Rooms.Commands;
+using System;
 using System.Threading.Tasks;
 
 namespace Reservations.Services.Rooms.Controllers
@@ -35,17 +36,45 @@ namespace Reservations.Services.Rooms.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost, Route("by-offices"), AllowAnonymous]
-        public async Task<IActionResult> GetRoomsByOfficeAsync([FromBody] GetAvailableRoomsByOfficesCommand command)
+        public async Task<IActionResult> GetRoomsByOfficeAsync([FromBody] GetAvailableRoomsByOfficeCommand command)
         {
-            return Ok(await _roomBusiness.AvailableRoomsByOfficesAsync(command));
+            return Ok(await _roomBusiness.AvailableRoomsByOfficeAsync(command));
         }
 
+        /// <summary>
+        /// Add resource to room
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost, Route("resource")]
         public async Task<IActionResult> AddResourceToRoomAsync([FromBody] AddResourceToRoomCommand command)
         {
             await _roomBusiness.AddResourceAsync(command);
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Get which resources are in which rooms
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("resources")]
+        public async Task<IActionResult> GetRoomsResourcesAsync()
+        {
+            return Ok(await _roomBusiness.GetRoomsResourcesAsync());
+        }
+
+        /// <summary>
+        /// Get room is resources
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("{id:guid}/resources")]
+        public async Task<IActionResult> GetRoomResourcesAsync([FromRoute] Guid id)
+        {
+            return Ok(await _roomBusiness.GetRoomResources(new GetRoomResourcesCommand
+            {
+                RoomId = id
+            }));
         }
     }
 }

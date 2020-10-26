@@ -18,6 +18,12 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:Reservations.Services.Reservations.Controllers.ReservationController.GetMyReservations">
+            <summary>
+            Get my reservations
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Reservations.Services.Offices.Controllers.ServiceController.Ping">
             <summary>
             Service health check endpoint

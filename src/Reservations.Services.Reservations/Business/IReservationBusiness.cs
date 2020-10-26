@@ -11,5 +11,7 @@ namespace Reservations.Services.Reservations.Business
         public Task<List<RoomViewModel>> CheckAvailabilityAsync(CheckAvailableRoomsCommand command);
 
         public Task CreateReservationAsync(CreateReservationCommand command);
+
+        public Task<List<ReservationViewModel>> GetMyReservationsAsync();
     }
 }

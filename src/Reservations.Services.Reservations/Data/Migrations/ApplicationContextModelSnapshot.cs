@@ -52,6 +52,40 @@ namespace Reservations.Services.Reservations.Data.Migrations
 
                     b.ToTable("reservations");
                 });
+
+            modelBuilder.Entity("Reservations.Services.Reservations.Entities.Resource", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ReservationId")
+                        .HasColumnName("reservation_id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnName("resource_id")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_resources");
+
+                    b.HasIndex("ReservationId")
+                        .HasName("ix_resources_reservation_id");
+
+                    b.ToTable("resources");
+                });
+
+            modelBuilder.Entity("Reservations.Services.Reservations.Entities.Resource", b =>
+                {
+                    b.HasOne("Reservations.Services.Reservations.Entities.Reservation", "Reservation")
+                        .WithMany("Resources")
+                        .HasForeignKey("ReservationId")
+                        .HasConstraintName("fk_resources_reservations_reservation_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 #pragma warning restore 612, 618
         }
     }

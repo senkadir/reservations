@@ -1,5 +1,6 @@
 ﻿using NpgsqlTypes;
 using System;
+using System.Collections.Generic;
 
 namespace Reservations.Services.Reservations.Entities
 {
@@ -14,5 +15,7 @@ namespace Reservations.Services.Reservations.Entities
         public int PersonCount { get; set; }
 
         public NpgsqlRange<DateTime> Duration { get; set; }
+
+        public List<Resource> Resources { get; set; }
     }
 }

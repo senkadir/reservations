@@ -27,5 +27,15 @@ namespace Reservations.Services.Rooms.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Get all resources
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetResources()
+        {
+            return Ok(await _resourceBusiness.GetResourcesAsync());
+        }
     }
 }

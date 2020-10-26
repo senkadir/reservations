@@ -22,5 +22,7 @@ namespace Reservations.Services.Reservations.Data
         }
 
         public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<Resource> Resources { get; set; }
     }
 }

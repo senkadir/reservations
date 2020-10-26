@@ -17,6 +17,12 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:Reservations.Services.Rooms.Controllers.ResourceController.GetResources">
+            <summary>
+            Get all resources
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Reservations.Services.Rooms.Controllers.RoomController.CreateRoomAsync(Reservations.Services.Rooms.Commands.CreateRoomCommand)">
             <summary>
             Create new room
@@ -24,11 +30,30 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.GetRoomsByOfficeAsync(Reservations.Services.Rooms.Commands.GetAvailableRoomsByOfficesCommand)">
+        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.GetRoomsByOfficeAsync(Reservations.Services.Rooms.Commands.GetAvailableRoomsByOfficeCommand)">
             <summary>
             Get available rooms by offices
             </summary>
             <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.AddResourceToRoomAsync(Reservations.Services.Rooms.Commands.AddResourceToRoomCommand)">
+            <summary>
+            Add resource to room
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.GetRoomsResourcesAsync">
+            <summary>
+            Get which resources are in which rooms
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Reservations.Services.Rooms.Controllers.RoomController.GetRoomResourcesAsync(System.Guid)">
+            <summary>
+            Get room is resources
+            </summary>
             <returns></returns>
         </member>
     </members>

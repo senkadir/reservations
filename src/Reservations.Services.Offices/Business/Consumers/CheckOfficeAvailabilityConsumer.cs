@@ -17,15 +17,17 @@ namespace Reservations.Services.Offices.Business.Consumers
 
         public async Task Consume(ConsumeContext<CheckOfficeAvailability> context)
         {
-            var availableOffices = await _officeBusiness.AvailableOfficesAsync(new CheckAvailableOfficesCommand
+            var officeId = await _officeBusiness.AvailableOfficesAsync(new CheckOfficeAvailailityCommand
             {
+                Location = context.Message.Location,
                 StartTime = context.Message.StartTime,
                 EndTime = context.Message.EndTime
             });
 
             await context.RespondAsync<OfficeAvailabilityRespond>(new
             {
-                AvailableOffices = availableOffices
+                Available = officeId != null,
+                OfficeId = officeId
             });
         }
     }

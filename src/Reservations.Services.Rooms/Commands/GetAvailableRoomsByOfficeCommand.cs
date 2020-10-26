@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Reservations.Services.Rooms.Commands
 {
-    public class GetAvailableRoomsByOfficesCommand
+    public class GetAvailableRoomsByOfficeCommand
     {
-        public List<Guid> Offices { get; set; }
+        public Guid OfficeId { get; set; }
     }
 }

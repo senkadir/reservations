@@ -11,7 +11,7 @@
   "profiles": {
     "Reservations.Services.Gateway": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "docs",
       "applicationUrl": "https://localhost:45026;http://localhost:45027",
       "environmentVariables": {

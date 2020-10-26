@@ -10,8 +10,12 @@ namespace Reservations.Services.Rooms.Business
     {
         public Task CreateAsync(CreateRoomCommand command);
 
-        public Task<List<RoomViewModel>> AvailableRoomsByOfficesAsync(GetAvailableRoomsByOfficesCommand command);
+        public Task<List<RoomViewModel>> AvailableRoomsByOfficeAsync(GetAvailableRoomsByOfficeCommand command);
 
         public Task AddResourceAsync(AddResourceToRoomCommand command);
+
+        public Task<List<RoomResourceViewModel>> GetRoomsResourcesAsync();
+
+        public Task<List<RoomResourceViewModel>> GetRoomResources(GetRoomResourcesCommand command);
     }
 }

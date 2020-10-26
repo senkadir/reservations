@@ -11,7 +11,6 @@ using Reservations.Services.Rooms.Commands;
 using Reservations.Services.Rooms.Data;
 using Reservations.Services.Rooms.Entities;
 using Reservations.Services.Rooms.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,14 +32,12 @@ namespace Reservations.Services.Rooms.Business
             _bus = bus;
         }
 
-        public async Task<List<RoomViewModel>> AvailableRoomsByOfficesAsync(GetAvailableRoomsByOfficesCommand command)
+        public async Task<List<RoomViewModel>> AvailableRoomsByOfficeAsync(GetAvailableRoomsByOfficeCommand command)
         {
             Check.NotNull(command, nameof(command));
 
-            Check.NotNull(command.Offices, nameof(command.Offices));
-
             return await _applicationContext.Rooms
-                                            .Where(x => command.Offices.Contains(x.OfficeId))
+                                            .Where(x => x.OfficeId == command.OfficeId)
                                             .ProjectTo<RoomViewModel>(_mapper.ConfigurationProvider)
                                             .ToListAsync();
         }
@@ -102,6 +99,44 @@ namespace Reservations.Services.Rooms.Business
             await _applicationContext.RoomResources.AddAsync(roomResource);
 
             await _applicationContext.SaveChangesAsync();
+        }
+
+        public async Task<List<RoomResourceViewModel>> GetRoomsResourcesAsync()
+        {
+            return await AllRoomsResources()
+                         .ToListAsync();
+        }
+
+        public async Task<List<RoomResourceViewModel>> GetRoomResources(GetRoomResourcesCommand command)
+        {
+            return await AllRoomsResources()
+                              .Where(x => x.RoomId == command.RoomId)
+                              .ToListAsync();
+        }
+
+        public IQueryable<RoomResourceViewModel> AllRoomsResources()
+        {
+            return (from room_resources in _applicationContext.RoomResources
+                    join rooms in _applicationContext.Rooms on room_resources.RoomId equals rooms.Id
+                    join resources in _applicationContext.Resources on room_resources.ResourceId equals resources.Id
+                    select new
+                    {
+                        room_resources.RoomId,
+                        RoomName = rooms.Name,
+                        room_resources.ResourceId,
+                        ResourceName = resources.Name,
+                        resources.TotalQuantity,
+                        room_resources.Quantity
+                    })
+                    .Select(x => new RoomResourceViewModel
+                    {
+                        RoomId = x.RoomId,
+                        RoomName = x.RoomName,
+                        ResourceId = x.ResourceId,
+                        ResourceName = x.ResourceName,
+                        ResourceTotalQuantity = x.TotalQuantity,
+                        ResourceUsedQuantity = x.Quantity
+                    });
         }
     }
 }

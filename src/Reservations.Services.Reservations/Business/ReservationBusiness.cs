@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -42,24 +43,44 @@ namespace Reservations.Services.Reservations.Business
             _contextAccessor = contextAccessor;
         }
 
+        public Guid UserId
+        {
+            get
+            {
+                var userClaim = _contextAccessor.HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
+
+                Check.NotNull(userClaim, nameof(userClaim));
+
+                return Guid.Parse(userClaim.Value);
+            }
+        }
+
         public async Task<List<RoomViewModel>> CheckAvailabilityAsync(CheckAvailableRoomsCommand command)
         {
             Check.NotNull(command, nameof(command));
 
+            var userLocationClaim = _contextAccessor.HttpContext.User.Claims.Where(x => x.Type == "location").FirstOrDefault();
+
+            if (userLocationClaim == null)
+            {
+                throw new ServiceException("Can not find user is location");
+            }
+
             var response = await _bus.Request<CheckOfficeAvailability, OfficeAvailabilityRespond>(new
             {
+                Location = userLocationClaim.Value,
                 StartTime = command.StartTime.TimeOfDay,
                 EndTime = command.EndTime.TimeOfDay
             });
 
-            if (response.Message.AvailableOffices.Count == 0)
+            if (response.Message.Available == false)
             {
-                return new List<RoomViewModel>();
+                throw new ServiceException("Office not available provided times");
             }
 
-            var rooms = await _roomService.GetRoomsByOfficeAsync(new GetAvailableRoomsByOfficesCommand
+            var rooms = await _roomService.GetRoomsByOfficeAsync(new GetAvailableRoomsByOfficeCommand
             {
-                Offices = response.Message.AvailableOffices
+                OfficeId = response.Message.OfficeId
             });
 
             return rooms;
@@ -69,6 +90,25 @@ namespace Reservations.Services.Reservations.Business
         {
             Check.NotNull(command, nameof(command));
 
+            await CheckAvailabilityAsync(command);
+
+            Reservation reservation = _mapper.Map<Reservation>(command);
+
+            reservation.CreatedBy = UserId;
+
+            reservation.Resources.AddRange(command.Resources.Select(x => new Resource
+            {
+                Id = Guid.NewGuid(),
+                ResourceId = x
+            }));
+
+            await _applicationContext.Reservations.AddAsync(reservation);
+
+            await _applicationContext.SaveChangesAsync();
+        }
+
+        private async Task CheckAvailabilityAsync(CreateReservationCommand command)
+        {
             var roomAvailablityTask = _bus.Request<CheckRoomCapacity, RoomCapacityRespond>(new
             {
                 command.RoomId,
@@ -111,25 +151,6 @@ namespace Reservations.Services.Reservations.Business
             {
                 throw new ServiceException("Please choose available range of date to make an reservation");
             }
-
-            Reservation reservation = _mapper.Map<Reservation>(command);
-
-            var userClaim = _contextAccessor.HttpContext
-                                                    .User
-                                                    .Claims
-                                                    .Where(x => x.Type == ClaimTypes.NameIdentifier)
-                                                    .FirstOrDefault();
-
-            if (userClaim == null)
-            {
-                throw new ServiceException("User not found");
-            }
-
-            reservation.CreatedBy = Guid.Parse(userClaim.Value);
-
-            await _applicationContext.Reservations.AddAsync(reservation);
-
-            await _applicationContext.SaveChangesAsync();
         }
 
         public async Task<bool> CheckReservationAvailable(CheckReservationAvailableCommand command)
@@ -142,6 +163,14 @@ namespace Reservations.Services.Reservations.Business
                                                      .AnyAsync();
 
             return !anyExists;
+        }
+
+        public async Task<List<ReservationViewModel>> GetMyReservationsAsync()
+        {
+            return await _applicationContext.Reservations
+                                     .Where(x => x.CreatedBy == UserId)
+                                     .ProjectTo<ReservationViewModel>(_mapper.ConfigurationProvider)
+                                     .ToListAsync();
         }
     }
 }

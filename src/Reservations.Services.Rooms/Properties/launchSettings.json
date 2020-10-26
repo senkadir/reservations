@@ -7,7 +7,7 @@
   "profiles": {
     "Reservations.Services.Rooms": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "docs",
       "applicationUrl": "https://localhost:45022;http://localhost:45023",
       "environmentVariables": {

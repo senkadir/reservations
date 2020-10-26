@@ -15,6 +15,6 @@ namespace Reservations.Services.Offices.Business
 
         public Task<bool> ExistsAsync(Guid officeId);
 
-        Task<List<Guid>> AvailableOfficesAsync(CheckAvailableOfficesCommand command);
+        Task<Guid> AvailableOfficesAsync(CheckOfficeAvailailityCommand command);
     }
 }

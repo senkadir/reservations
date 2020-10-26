@@ -11,8 +11,8 @@ using Reservations.Services.Reservations.Data;
 namespace Reservations.Services.Reservations.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201022074427_Mig2")]
-    partial class Mig2
+    [Migration("20201023090641_Mig1")]
+    partial class Mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,40 @@ namespace Reservations.Services.Reservations.Data.Migrations
                         .HasName("ix_reservations_duration");
 
                     b.ToTable("reservations");
+                });
+
+            modelBuilder.Entity("Reservations.Services.Reservations.Entities.Resource", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ReservationId")
+                        .HasColumnName("reservation_id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnName("resource_id")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_resources");
+
+                    b.HasIndex("ReservationId")
+                        .HasName("ix_resources_reservation_id");
+
+                    b.ToTable("resources");
+                });
+
+            modelBuilder.Entity("Reservations.Services.Reservations.Entities.Resource", b =>
+                {
+                    b.HasOne("Reservations.Services.Reservations.Entities.Reservation", "Reservation")
+                        .WithMany("Resources")
+                        .HasForeignKey("ReservationId")
+                        .HasConstraintName("fk_resources_reservations_reservation_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
