@@ -15,12 +15,12 @@ All requests from outside come to the gateway service. After the necessary opera
 Architecturel parts of the system:
 ^^^^^^^^^^^^^^^^^^
 
-    1. Service discovery: `Consul <https://www.consul.io/)>
-    2. Gateway `Consul <https://github.com/ThreeMammals/Ocelot>`
-    3. Message broker: `RabbitMq <https://www.rabbitmq.com/>`
-    4. Distributed cache: `Redis <https://redis.io/>`
-    5. Containerization: `Docker <https://www.docker.com/>`
-    6. Development environment management: `Docker compose <https://docs.docker.com/compose/>`
+    1. Service discovery: `Consul <https://www.consul.io/)>`_
+    2. Gateway `Consul <https://github.com/ThreeMammals/Ocelot>`_
+    3. Message broker: `RabbitMq <https://www.rabbitmq.com/>`_
+    4. Distributed cache: `Redis <https://redis.io/>`_
+    5. Containerization: `Docker <https://www.docker.com/>`_
+    6. Development environment management: `Docker compose <https://docs.docker.com/compose/>`_
 
 
 Solution structure
